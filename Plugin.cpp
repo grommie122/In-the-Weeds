@@ -63,19 +63,38 @@ public:
         g.setColour(juce::Colours::white);
         g.setFont(17.0f);
         g.drawText("Octave fuzz", 34, 67, 120, 25, juce::Justification::centredLeft);
-        const juce::Point<float> points[] {
-            {0,-33},{7,-19},{13,-23},{12,-8},{24,-15},{24,-7},
-            {35,-8},{29,2},{34,6},{12,18},{13,23},{3,21},
-            {3,32},{-3,32},{-3,21},{-13,23},{-12,18},{-34,6},
-            {-29,2},{-35,-8},{-24,-7},{-24,-15},{-12,-8},{-13,-23},{-7,-19}
-        };
+        // Draw seven serrated leaflets from the same point.
         juce::Path leaf;
-        leaf.startNewSubPath(points[0]);
-        for (size_t i = 1; i < std::size(points); ++i)
-            leaf.lineTo(points[i]);
-        leaf.closeSubPath();
+        const auto addLeaflet = [&leaf](float angle, float length, float width)
+        {
+            juce::Path blade;
+            blade.startNewSubPath(0.0f, 0.0f);
+            blade.lineTo(-0.52f * width, -0.22f * length);
+            blade.lineTo(-0.37f * width, -0.30f * length);
+            blade.lineTo(-width, -0.47f * length);
+            blade.lineTo(-0.56f * width, -0.48f * length);
+            blade.lineTo(-0.85f * width, -0.67f * length);
+            blade.lineTo(-0.35f * width, -0.65f * length);
+            blade.lineTo(0.0f, -length);
+            blade.lineTo(0.35f * width, -0.65f * length);
+            blade.lineTo(0.85f * width, -0.67f * length);
+            blade.lineTo(0.56f * width, -0.48f * length);
+            blade.lineTo(width, -0.47f * length);
+            blade.lineTo(0.37f * width, -0.30f * length);
+            blade.lineTo(0.52f * width, -0.22f * length);
+            blade.closeSubPath();
+            leaf.addPath(blade, juce::AffineTransform::rotation(angle));
+        };
+        addLeaflet(0.0f, 23.0f, 3.7f);
+        addLeaflet(-0.52f, 21.0f, 3.4f);
+        addLeaflet(0.52f, 21.0f, 3.4f);
+        addLeaflet(-1.02f, 17.0f, 2.9f);
+        addLeaflet(1.02f, 17.0f, 2.9f);
+        addLeaflet(-1.58f, 12.0f, 2.1f);
+        addLeaflet(1.58f, 12.0f, 2.1f);
         g.setColour(juce::Colour(0xff8acb70));
-        g.fillPath(leaf, juce::AffineTransform::scale(0.76f).translated(526, 31));
+        g.fillPath(leaf, juce::AffineTransform::translation(526.0f, 39.0f));
+        g.drawLine(526.0f, 38.0f, 527.0f, 46.0f, 1.6f);
         g.setColour(juce::Colours::white);
         g.setFont(13.0f);
         for (size_t i = 0; i < knobs.size(); ++i)
