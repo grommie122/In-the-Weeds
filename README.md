@@ -1,5 +1,10 @@
 # In the Weeds
 
+[Download Windows x64 VST3 ZIP](https://github.com/grommie122/In-the-Weeds/releases/download/rolling-windows/In-the-Weeds-Windows-x64.zip)
+
+GitHub Actions refreshes this ZIP after successful builds from `main`.
+
+
 Hendrix-inspired octave fuzz for Windows x64 VST3 hosts. Smoke drives the fuzz.
 Octave Up blends in a full-wave-rectified octave effect. Octave Down mixes in
 a pitch-shifted lower octave. Level sets the output.
